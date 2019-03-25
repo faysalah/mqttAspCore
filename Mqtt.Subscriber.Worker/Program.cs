@@ -6,7 +6,12 @@ namespace Mqtt.Subscriber.Worker
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.Title = "Subscriber Worker";
+
+            MqttHandler mqttHandler = new MqttHandler();
+            mqttHandler.SubscribeTopic("hello");
+
+            Console.ReadKey();
         }
     }
 }

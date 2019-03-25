@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mqtt.Publisher.Worker
+namespace Mqtt.Subscriber.Worker
 {
     // event, delegate , callback , Treading , Task, schdule
     public class MqttHandler
@@ -16,7 +16,7 @@ namespace Mqtt.Publisher.Worker
             var factory = new MqttFactory();
             _mqttClient = factory.CreateMqttClient();
 
-            var test = this.Connect("172.16.16.91");
+            Task.WhenAll(this.Connect("172.16.16.91"));
         }
 
         public async Task Connect(string host)
@@ -24,12 +24,13 @@ namespace Mqtt.Publisher.Worker
             try
             {
                 var options = new MqttClientOptionsBuilder()
-                     .WithClientId("TestClient_pub")
+                     .WithClientId("TestClient_Sub")
                      .WithTcpServer(host)
                      .WithCleanSession()
                      .Build();
                 var test = await _mqttClient.ConnectAsync(options);
-                Console.WriteLine("Is Connected : {0} ",_mqttClient.IsConnected);
+                Console.WriteLine("Is Connected : {0} ", _mqttClient.IsConnected);
+
             }
             catch (Exception ex)
             {

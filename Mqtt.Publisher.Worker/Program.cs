@@ -9,18 +9,15 @@ namespace Mqtt.Publisher.Worker
     {
         static void Main(string[] args)
         {
-            
+            Console.Title = "Publisher Worker";
+            MqttHandler mqttHandler = new MqttHandler();
 
             while (true)
             {
-                Console.WriteLine("Write a mesage");
-                MqttHandler mqttHandler = new MqttHandler();
-               
-                var msg = Console.ReadLine();
-
-                var test1 = mqttHandler.PublishMessage(msg, "hello");
-
-                mqttHandler.ConsumePayload("hello");
+                Random random = new Random();
+                var message = string.Format("Created At : {0} | {1}", DateTime.Now, random.NextDouble());
+                var test = mqttHandler.PublishMessage(message, "hello");
+                Task.Delay(TimeSpan.FromMinutes(1)).Wait();
             }
         }
     }
